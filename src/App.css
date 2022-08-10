@@ -1,15 +1,19 @@
 .App {
   text-align: center;
-  
+    background-color: rgb(163, 157, 249);
 }
 textarea{
   resize:none;
- border-color: black;
+ 
+ border-style:outset;
  border-radius: 5px;
- border-width: 2px;
+ border-width: 9px;
+ box-shadow:blue;
 
 }
-
+.info-display > *{
+  margin-left: 10px;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -29,7 +33,7 @@ textarea{
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: rgb(255, 255, 255);
 }
 
 .App-link {

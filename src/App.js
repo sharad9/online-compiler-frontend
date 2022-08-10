@@ -7,12 +7,18 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 //import 'bootstrap/dist/js/bootstrap.bundle.min';
 import $ from 'jquery';
 import Popper from 'popper.js';
+import brace from 'brace';
+import AceEditor from 'react-ace';
+
+import 'brace/mode/python';
+import 'brace/theme/monokai';
 
 function App() {
   const [code, setCode] = useState("");
   const [output, setOutput] = useState("");
   const [language, setLanguage] = useState("cpp");
   const [jobId, setJobId] = useState(null);
+  const [userName, setUserName] = useState("UserName1");
   const [status, setStatus] = useState(null);
   const [jobDetails, setJobDetails] = useState(null);
 
@@ -20,8 +26,9 @@ function App() {
     setCode(stubs[language]);
   }, [language]);
 
+
   useEffect(() => {
-    const defaultLang = localStorage.getItem("default-language") || "cpp";
+    const defaultLang = localStorage.getItem("default-language") || "py";
     setLanguage(defaultLang);
   }, []);
 
@@ -31,21 +38,23 @@ function App() {
     const payload = {
       language,
       code,
+      userName
     };
     try {
       setOutput("");
       setStatus(null);
       setJobId(null);
       setJobDetails(null);
-      const { data } = await axios.post("https://sasa-online-compiler.herokuapp.com/run", payload);
+      const { data } = await axios.post("http://localhost:5000/run", payload);
       if (data.jobId) {
+        setUserName(userName);
         setJobId(data.jobId);
         setStatus("Submitted.");
 
         // poll here
         pollInterval = setInterval(async () => {
           const { data: statusRes } = await axios.get(
-            `https://sasa-online-compiler.herokuapp.com/status`,
+            `http://localhost:5000/status`,
             {
               params: {
                 id: data.jobId,
@@ -101,13 +110,53 @@ function App() {
     result += `Execution Time: ${diff}s`;
     return result;
   };
+  function validatePassword(p) {
+    //var p = document.getElementById('newPassword').value,
+    const errors = [];
+    var specials = /[^A-Za-z 0-9]/g;
+
+    if (specials.test(p)) {
+      errors.push("Your username should only contain Letters And Digits.");
+    } else
+      if (p[0].search(/[A-Z]/) < 0) {
+        errors.push("Your userName must start with one upper case letter.");
+      } else
+
+        if (p.length < 7) {
+          errors.push("Your userName must be at least 8 characters");
+        } else
+          if (p.length > 32) {
+            errors.push("Your userName must be at max 32 characters");
+          } else
+
+
+            if (p.search(/[0-9]/) < 0) {
+              errors.push("Your userName must contain at least one digit.");
+            }
+
+    if (errors.length > 0) {
+      document.getElementById('userNameStatus').innerText = errors[0];
+      errors.shift();
+      console.log(errors.join("\n"));
+      return false;
+    }
+    document.getElementById('userNameStatus').innerText = "You Are Ready To Proceed.";
+    return true;
+  }
+
+  
+  function onChange(newValue) {
+
+    setCode(newValue);
+
+  }
 
   return (
     <div className="App">
 
       <nav role="navigation" class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
-     
+
           <div class="navbar-header">
             <a href="#" class="navbar-brand"><b>Sasa</b></a>
             <button type="button" class="btn btn-danger btn-xs"
@@ -115,15 +164,29 @@ function App() {
           </div>
         </div>
       </nav>
-      
+
+
       <div class="container">
         <div class="page-header">
           <br></br>
           <h2>Sasa Online Compiler</h2>
         </div>
       </div>
-      <div class="container-fluid">
-        <a class="btn btn-warning btn-sm" onClick={setDefaultLanguage}>Set Default</a>
+      <div class="container-fluid info-display">
+        <h4><sub><mark id="userNameStatus">Create Unique User Name.</mark></sub><sub><b>Note:</b><code>Program Class Name* Should Be Same As UserName*</code></sub></h4>
+
+
+
+        <label>UserName:</label>
+        <input 
+        defaultValue={userName}
+        onChange={(e) => {
+          const button = document.getElementById('submit');
+          if (validatePassword(e.target.value)) { button.disabled = false; setUserName(e.target.value); } else button.disabled = true;
+      
+        }}></input>
+        <a class="btn btn-warning btn-sm" onClick={setDefaultLanguage}>Set This Code As Default</a>
+
         <label>Language:</label>
         <select
           value={language}
@@ -159,30 +222,54 @@ function App() {
           <br />
           <strong>{renderTimeDetails()}</strong>
         </div>
-        <div class="panel-body">
-          <div class="container-fluid">
-        
-              <textarea
-                rows="20"
-                cols="65"
-                value={code}
 
-                onChange={(e) => {
-                  setCode(e.target.value);
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-sm-6 col-md-8 col-lg-8">
+              <AceEditor
+                mode="python"
+                theme="monokai"
+                fontSize={16}
+                onChange={onChange}
+                value={code}
+                width="100%"
+                height="500px"
+                showPrintMargin={true}
+                showGutter={true}
+                highlightActiveLine={true}
+
+                setOptions={{
+                  enableBasicAutocompletion: true,
+                  enableLiveAutocompletion: true,
+                  enableSnippets: true,
+                  showLineNumbers: true,
+                  tabSize: 4,
                 }}
-              ></textarea>
-            
+                name="UNIQUE_ID_OF_DIV"
+                
+              />
+            </div>
+
+
+            <div class="col-sm-6 col-md-3 col-lg-4">
               <textarea
-                rows="20"
-                cols="35"
+                class="output"
+                rows="24"
+                cols="41"
                 value={output}
               ></textarea>
 
-            
+
+            </div>
+
           </div>
         </div>
         <div class="panel-footer">
-          <a onClick={handleSubmit} class="btn btn-success btn-sm">Submit</a>
+          
+            <button id="submit" onClick={handleSubmit} class="btn btn-success btn-sm" >Run</button>
+
+          
+
 
         </div>
       </div>
