@@ -1,5 +1,13 @@
 .App {
   text-align: center;
+  
+}
+textarea{
+  resize:none;
+ border-color: black;
+ border-radius: 5px;
+ border-width: 2px;
+
 }
 
 .App-logo {
