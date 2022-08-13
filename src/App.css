@@ -1,8 +1,16 @@
 .App {
   text-align: center;
-    background-color: rgb(163, 157, 249);
+    justify-content: center;
+    background-color:#6d8ccd;
+    font-family: sans-serif;
+    color: black;
+     scroll-behavior:smooth;
+ 
+  overflow: hidden;
+     
 }
-textarea{
+
+.editor{
   resize:none;
  
  border-style:outset;
@@ -11,12 +19,29 @@ textarea{
  box-shadow:blue;
 
 }
+textarea{
+  resize:none;
+  border: none;
+    outline: none;
+   caret-color: rgba(0,0,0,0);
+
+  width:95%;
+  margin:5px 0;
+  padding:2px;
+  box-sizing: content-box;
+}
 .info-display > *{
   margin-left: 10px;
 }
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  
+
 }
 
 @media (prefers-reduced-motion: no-preference) {

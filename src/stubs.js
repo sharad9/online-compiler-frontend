@@ -28,7 +28,7 @@ for i in range(0, n):
 
 stubs.java =
 `import java.io.*;
-public class UserName1
+class UserName1
 {
 	public static void printStars(int n)
 	{
