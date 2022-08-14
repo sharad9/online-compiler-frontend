@@ -15,6 +15,8 @@ import 'brace/mode/python';
 import   'brace/mode/java';
 import   'brace/mode/c_cpp';
 
+import 'brace/ext/searchbox';
+import 'brace/ext/language_tools';
 import 'brace/theme/ambiance';
 import 'brace/theme/chaos';
 import 'brace/theme/clouds_midnight';
@@ -326,7 +328,7 @@ function App() {
 
         </div>
 
-     
+      </div>
       <div class="panel panel-default">
         <div class="panel-body">
           <div class="row">
@@ -334,7 +336,8 @@ function App() {
               <div class="editor">
 
                 <AceEditor
-
+               
+                  placeholder={"Class Should Not Be Public And It Should Be Same As Your UserName."}
                   mode={languageDict[language]}
                   theme={theme}
                   fontSize={16}
@@ -345,9 +348,9 @@ function App() {
                   showPrintMargin={true}
                   showGutter={true}
                   highlightActiveLine={true}
-
+                  
                   setOptions={{
-                    enableBasicAutocompletion: false,
+                    enableBasicAutocompletion: true,
                     enableLiveAutocompletion: true,
                     enableSnippets: false,
                     showLineNumbers: true,
@@ -383,7 +386,7 @@ function App() {
       </div>
     </div>
 
-    </div>
+
 
 
   );
