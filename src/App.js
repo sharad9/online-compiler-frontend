@@ -63,7 +63,7 @@ function App() {
   const [output, setOutput] = useState("");
   const [language, setLanguage] = useState("cpp");
   const [theme, setTheme] = useState('chaos');
-  const [userName, setUserName] = useState("UserName1");
+  const [userName, setUserName] = useState("ClassName1");
   const [status, setStatus] = useState(null);
   const [executionTimeDispay, setexecutionTimeDispay] = useState(null);
 
@@ -129,22 +129,22 @@ function App() {
     var specials = /[^A-Za-z 0-9]/g;
 
     if (specials.test(p)) {
-      errors.push("Your username should only contain Letters And Digits.");
+      errors.push("Your class name should only contain Letters And Digits.");
     } else
       if (p[0].search(/[A-Z]/) < 0) {
-        errors.push("Your userName must start with one upper case letter.");
+        errors.push("Your class name must start with one upper case letter.");
       } else
 
         if (p.length < 7) {
-          errors.push("Your userName must be at least 8 characters");
+          errors.push("Your class name must be at least 8 characters");
         } else
           if (p.length > 32) {
-            errors.push("Your userName must be at max 32 characters");
+            errors.push("Your class name must be at max 32 characters");
           } else
 
 
             if (p.search(/[0-9]/) < 0) {
-              errors.push("Your userName must contain at least one digit.");
+              errors.push("Your class name must contain at least one digit.");
             }
 
     if (errors.length > 0) {
@@ -196,12 +196,12 @@ function App() {
 
         <div class="panel panel-default">
           <div class='panel-heading'>
-            <b>Note:</b><code>Program Class Name* Should Be Same As UserName*</code>
+            <b>Note:</b><code>Java Program Class Name* Should Be Mentioned Here And Do Not Make It Public*.</code>
             <div class="row">
               <br></br>
 
               <div class="col-md-4">
-                <label>UserName:</label>
+                <label>Class Name:</label>
                 <input
                   defaultValue={userName}
                   onChange={(e) => {
@@ -210,7 +210,7 @@ function App() {
 
                   }}></input>
                 <br></br>
-                <h6><code class="text-danger" id="userNameStatus">Create Unique User Name.</code></h6>
+                <h6><code class="text-danger" id="userNameStatus">Create Unique Class Name.</code></h6>
 
 
 
