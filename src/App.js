@@ -12,8 +12,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import AceEditor from 'react-ace';
 
 import 'brace/mode/python';
-import   'brace/mode/java';
-import   'brace/mode/c_cpp';
+import 'brace/mode/java';
+import 'brace/mode/c_cpp';
 
 import 'brace/ext/searchbox';
 import 'brace/ext/language_tools';
@@ -97,14 +97,14 @@ function App() {
       setexecutionTimeDispay(null);
       const { data } = await axios.post("https://sasa-fast-compiler.herokuapp.com/run", payload);
       setStatus("Executed");
-      
+
       console.log(data);
 
 
       setUserName(userName);
-     setexecutionTimeDispay(data.executionTime);
-     
-      
+      setexecutionTimeDispay(data.executionTime);
+
+
 
       setOutput('Output: \n' + data.result.output.stdout + '\n' + 'Status: \n' + data.result.output.stderr);
 
@@ -169,18 +169,18 @@ function App() {
 
 
       <nav role="navigation" class="navbar navbar-default">
-         <div class="navbar-header navbar-left">
+        <div class="navbar-header navbar-left">
           <form>
-            <img type="submit" class="img-rounded" src="./favicon.ico"  alt="Avatar" width="40" height="30" />
+            <img type="submit" class="img-rounded" src="./favicon.ico" alt="Avatar" width="40" height="30" />
             <label>Sasa Online Compiler</label>
           </form>
-          
+
         </div>
-          
-        
-       
-        
-      
+
+
+
+
+
         <div class="navbar-form navbar-right">
 
           <input
@@ -227,7 +227,7 @@ function App() {
                     );
                     if (shouldSwitch) {
                       setStatus("");
-                     
+
                       setLanguage(e.target.value);
                     }
                   }}
@@ -265,7 +265,7 @@ function App() {
 
                     onChange={(e) => { setTheme(e.target.value); }}
                   >
-                   
+
 
                     <optgroup label="Bright">
                       <option value="chrome">Chrome</option>
@@ -310,7 +310,7 @@ function App() {
                     </optgroup>
                   </select>
 
-                 
+
 
                 </div>
               </div>
@@ -336,7 +336,7 @@ function App() {
               <div class="editor">
 
                 <AceEditor
-               
+
                   placeholder={"Class Should Not Be Public And It Should Be Same As Your UserName."}
                   mode={languageDict[language]}
                   theme={theme}
@@ -348,7 +348,7 @@ function App() {
                   showPrintMargin={true}
                   showGutter={true}
                   highlightActiveLine={true}
-                  
+
                   setOptions={{
                     enableBasicAutocompletion: true,
                     enableLiveAutocompletion: true,
@@ -378,10 +378,18 @@ function App() {
           </div>
         </div>
         <div class="panel-footer">
+          
+            <a class="btn btn-block btn-default btn-xs" href="#">
+              <h4>
+              <span class="glyphicon glyphicon-th-large"></span>
+              <span class="glyphicon-class">Sasa Coding Problems</span>
+              </h4>
+             
+            </a>
+          
 
 
-
-
+         
         </div>
       </div>
     </div>
