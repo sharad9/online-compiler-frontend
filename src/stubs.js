@@ -47,7 +47,7 @@ p.pattern();
 
 stubs.java =
 `import java.io.*;
-class ClassName1
+class Main
 {
 	public static void printStars(int n)
 	{

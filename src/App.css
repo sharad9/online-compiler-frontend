@@ -1,7 +1,7 @@
 .App {
   text-align: center;
     justify-content: center;
-    background-color:#6d8ccd;
+    background-color:#1E2152;
     font-family: sans-serif;
     color: black;
      scroll-behavior:smooth;
@@ -10,13 +10,14 @@
      
 }
 
+
 .editor{
   resize:none;
  
  border-style:outset;
  border-radius: 5px;
  border-width: 9px;
- box-shadow:blue;
+ box-shadow:rgb(0, 0, 0);
 
 }
 textarea{
@@ -59,6 +60,7 @@ textarea{
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: rgb(255, 255, 255);
+  
 }
 
 .App-link {
